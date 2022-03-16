@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+
+    <title>Formulario</title>
+</head>
+<body>
+    <center>
+        <br>
+    <h2>Bienvenido al registro de la newsletter</h2><br>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Telef%C3%B3nica.png"></center>
+    <div class="container-fluid">
+       
+        
+        <div class="form">
+            <center>
+           <div class="mb-3 row">
+               
+             <label for="inputName" class="col-sm-2 col-form-label" >Nombre:</label>
+            <div class="col-sm-3">
+                <input id="inputName" type="text"></div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputSurname" class="col-sm-2 col-form-label">Apellido:</label>
+               <div class="col-sm-3">
+                   <input id="inputSurname" type="text"></div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputNumber" class="col-sm-2 col-form-label">Edad:</label>
+               <div class="col-sm-3">
+                   <input id="inputNumber" type="text"></div>
+            </div>
+            <div class="mb-3 row">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-3">
+                <input id="inputEmail" type="text"></div>
+            </div>
+            
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                <button onclick= "getContactData()" id="btn-enviar">Registrarse</button> </div>
+            </div>
+        </center>
+         </div>
+        
+  
+    </div>
+
+
+    <footer class="bg-light text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a
+                        class="btn btn-primary btn-floating m-1"
+                        style="background-color: #3b5998;"
+                        href="https://es-es.facebook.com/telefonica/"
+                        role="button"
+                ><i class="fab fa-facebook-f"></i
+                ></a>
+    
+                <!-- Twitter -->
+                <a
+                        class="btn btn-primary btn-floating m-1"
+                        style="background-color: #55acee;"
+                        href="https://twitter.com/telefonica/"
+                        role="button"
+                ><i class="fab fa-twitter"></i
+                ></a>
+    
+                <!-- Instagram -->
+                <a
+                        class="btn btn-primary btn-floating m-1"
+                        style="background-color: #ac2bac;"
+                        href="https://www.instagram.com/telefonica/?hl=es"
+                        role="button"
+                ><i class="fab fa-instagram"></i
+                ></a>
+    
+                <!-- Linkedin -->
+                <a
+                        class="btn btn-primary btn-floating m-1"
+                        style="background-color: #0082ca;"
+                        href="https://www.linkedin.com/company/telef%C3%B3nica/?originalSubdomain=es"
+                        role="button"
+                ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <!-- Github -->
+    
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2022 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Telefonica.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</body>
+
+<script>
+     
+     
+    const getContactData = async () => {
+      
+
+
+        let inputName= document.getElementById("inputName").value;
+        let inputSurname= document.getElementById("inputSurname").value;
+        let inputNumber= document.getElementById("inputNumber").value;
+        let inputEmail= document.getElementById("inputEmail").value;
+
+        if (inputName === "") {
+                alert("Por favor, escribe tu nombre de usuario.");
+                return false;
+                
+            }
+                
+        if (inputSurname === "") {
+                alert("Por favor, escribe tu apellido");
+
+                return false;
+            }
+        
+        if (inputNumber === "") {
+                alert("Por favor, escribe tu edad");
+                return false;
+            }
+
+
+        if (inputEmail =="") {
+                alert("Por favor, escribe un correo electrónico válido");
+                inputEmail.focus();
+
+                return false;
+            }
+
+
+        let request= await fetch("/contacts" , {
+            method: "POST" , 
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: inputName, 
+                surname: inputSurname, 
+                age: inputNumber,
+                email: inputEmail,
+            }), 
+            dataType: "json",
+            
+        });
+
+        if(request.ok){
+
+            alert("Sus datos se han registrado de manera correcta")
+            console.log(await request.json());
+
+        }
+    };   
+    
+
+</script>
+
+</html>
