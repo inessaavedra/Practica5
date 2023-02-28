@@ -1,4 +1,4 @@
-# Practica5
+# Practica5 - Validar un Formulario JS y SpringBoot
 
 Formulario de registro en la newsletter de Telefonica 
 
